@@ -1,0 +1,75 @@
+
+<!doctype html>
+
+<html lang="en" ng-app="Eggly">
+<head>
+  <meta charset="utf-8">
+
+  <title>Angular App</title>
+  <meta name="description" content="The HTML5 Herald">
+  <meta name="author" content="SitePoint">
+
+  <link rel="stylesheet" href="bower_components/bootstrap/dist/css/bootstrap.css">
+  <link rel="stylesheet" href="bower_components/bootstrap/dist/css/bootstrap-grid.css">
+
+  <!--[if lt IE 9]>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/html5shiv/3.7.3/html5shiv.js"></script>
+  <![endif]-->
+</head>
+
+<body ng-controller="MainCtrl">
+<div class="container-fluid ">
+  <div class="row mt-5">
+    <div class="col-4">
+      <a href="" ng-click="setCurrentCategory(null)">Curso Angular 1</a>
+      <ul class="mt-5">
+          <li ng-repeat="category in categories" ng-class="{'active':isCurrentCategory(category)}"><a href="" ng-click="setCurrentCategory(category)">{{category.name}}</a></li>
+      </ul>
+    </div>
+    <div class="col-8">
+        <div ng-repeat="bookmark in bookmarks | filter:{category:currentCategory.name}">
+            <button>&times;</button>
+            <button ng-click="startEditing()">Edit</button>
+            <a href="{{bookmark.url}}">{{bookmark.title}}</a>
+        </div>
+        <!-- Creating -->
+        <div ng-if="shouldShowCreating()">
+          <hr/>
+          <button ng-click="startCreating()">Create bookmark</button>
+          <div ng-if="isCreating">
+            Create a bookmark
+            <button ng-click="cancelCreating()" class="float-right">Cancel</button>
+            <form ng-submit="createBookmark(newBookmark)">
+              <label>Title</label>
+              <input type="text" id="newTitleBookmark" ng-model="newBookmark.title">
+              <br>
+              <label>URL</label>
+              <input type="text" id="newBookmarkURL" ng-model="newBookmark.url">
+              <br>
+              <button type="submit">Create bookmark</button>
+              <button type="button" ng-click="cancelCreating()">Cancel</button>
+            </form>
+          </div>
+        </div>
+        <!-- editing -->
+        <hr/>
+        <div ng-if="shouldShowEditing()">
+          <form ng-submit="editBookmark(editBookmark)">
+            <label>Title</label>
+            <input type="text" ng-model="editBookmark.title">
+            <label>URL</label>
+            <input type="text" ng-model="editBookmark.url">
+            <button type="submit">Edit bookmark</button>
+            <button ng-click="cancelEditing()" class="float-right">Cancel</button>
+          </form>
+        </div>
+    </div>
+  </div>
+</div>
+
+  <script src="bower_components/jquery/dist/jquery.min.js"></script>
+  <script src="bower_components/bootstrap/dist/js/bootstrap.min.js"></script>
+  <script src="bower_components/angular/angular.js"></script>
+  <script src="app/eggly-app.start.js"></script>
+</body>
+</html>
