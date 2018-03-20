@@ -17,6 +17,11 @@ angular.module('Eggly', [
       {"id": 4, "title": "AngularJS", "url": "http://angularjs.org", "category": "Humor"},
     ];
 
+    $scope.messages = [
+      {"title": "Hola"},
+      {"message": "Marina"}
+    ];
+
     $scope.currentCategory = null;
 
     function setCurrentCategory(category){
@@ -98,6 +103,16 @@ angular.module('Eggly', [
       $scope.editBookmark = bookmark;
     }
 
+    $scope.setEditBookmark = setEditBookmark;
+
+    var createGreeting = function(name, message) {
+      return message + name;
+    }
+
+    var arrowGreeting = (name, message) => message + name;
+
+    $scope.createGreeting = createGreeting;
+    $scope.arrowGreeting = arrowGreeting;
 
   })
 ;
